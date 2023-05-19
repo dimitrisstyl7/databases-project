@@ -10,10 +10,8 @@ create table team
 create table footballer
 (
     footballer_id      serial      not null unique,
-    footballer_name    varchar(10) not null
-        check (footballer_name ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
-    footballer_surname varchar(10) not null
-        check (footballer_surname ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
+    footballer_name    varchar(10) not null check (footballer_name ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
+    footballer_surname varchar(10) not null check (footballer_surname ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
     primary key (footballer_id)
 );
 
@@ -31,8 +29,7 @@ create table footballer_position_in_team
 (
     footballer_id integer     not null,
     team_id       integer     not null,
-    position      varchar(15) not null
-        check (position in ('goalkeeper', 'defender', 'midfielder', 'forward')),
+    position      varchar(15) not null check (position in ('goalkeeper', 'defender', 'midfielder', 'forward')),
     primary key (footballer_id, team_id),
     foreign key (footballer_id) references footballer (footballer_id),
     foreign key (team_id) references team (team_id)
@@ -61,8 +58,9 @@ create table coach_position_in_team
 (
     coach_id integer     not null,
     team_id  integer     not null,
-    position varchar(15) not null
-        check (position in ('head', 'assistant', 'goalkeeping', 'fitness', 'technical', 'scout', 'youth')),
+    position varchar(15) not null check (position in
+                                         ('head', 'assistant', 'goalkeeping', 'fitness', 'technical', 'scout',
+                                          'youth')),
     primary key (coach_id, team_id),
     foreign key (coach_id) references coach (coach_id),
     foreign key (team_id) references team (team_id)
@@ -131,6 +129,7 @@ create table goal
     footballer_id integer not null,
     goal_time     time    not null,
     is_valid      boolean not null,
+    is_penalty    boolean not null,
     primary key (match_id, footballer_id, goal_time),
     foreign key (match_id) references match (match_id),
     foreign key (footballer_id) references footballer (footballer_id)
