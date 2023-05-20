@@ -50,3 +50,6 @@ CREATE OR REPLACE TRIGGER check_coach_criteria
     ON footballclub_db.public.football_team_member
     FOR EACH ROW
 EXECUTE FUNCTION check_coach_criteria();
+
+select current_date;
+SELECT now()::timestamp(0);

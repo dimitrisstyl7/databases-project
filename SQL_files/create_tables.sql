@@ -1,158 +1,182 @@
-DROP TABLE IF EXISTS CARD;
-DROP TABLE IF EXISTS FOOTBALLER_STATISTIC;
-DROP TABLE IF EXISTS CORNER;
-DROP TABLE IF EXISTS PENALTY;
-DROP TABLE IF EXISTS GOAL;
-DROP TABLE IF EXISTS MATCH_STATISTIC;
-DROP TABLE IF EXISTS MATCH;
-DROP TABLE IF EXISTS DEFEATS;
-DROP TABLE IF EXISTS DRAWS;
-DROP TABLE IF EXISTS WINS;
-DROP TABLE IF EXISTS TEAM_STATISTIC;
-DROP TABLE IF EXISTS COACH;
-DROP TABLE IF EXISTS FOOTBALLER;
-DROP TABLE IF EXISTS FOOTBALL_TEAM_MEMBER;
-DROP TABLE IF EXISTS TEAM;
-
-CREATE TABLE TEAM
+create table team
 (
-    team_id     INT  NOT NULL UNIQUE,
-    name        TEXT NOT NULL,
-    stadium     TEXT NOT NULL,
-    description TEXT NOT NULL,
-    PRIMARY KEY (team_id)
+    team_id     integer     not null unique,
+    team_name   varchar(30) not null,
+    stadium     varchar(30) not null,
+    description text        not null,
+    primary key (team_id)
 );
 
-CREATE TABLE FOOTBALL_TEAM_MEMBER
+create table footballer
 (
-    team_id         INT         NOT NULL,
-    member_id       INT         NOT NULL UNIQUE,
-    name            VARCHAR(10) NOT NULL CHECK (name ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
-    surname         VARCHAR(10) NOT NULL CHECK (name ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
-    role            TEXT        NOT NULL, -- footballer or coach
-    registered_date DATE        NOT NULL,
-    PRIMARY KEY (team_id, member_id, role),
-    FOREIGN KEY (team_id) REFERENCES TEAM (team_id)
+    footballer_id      integer     not null unique,
+    footballer_name    varchar(10) not null check (footballer_name ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
+    footballer_surname varchar(10) not null check (footballer_surname ~ '^[Α-Ωα-ωΆ-Ώά-ώΫϋΰΪϊΐ]+$'),
+    primary key (footballer_id)
 );
 
-CREATE TABLE FOOTBALLER
+create table footballer_registration_date_in_team
 (
-    footballer_id INT  NOT NULL UNIQUE,
-    position      TEXT NOT NULL,
-    PRIMARY KEY (footballer_id),
-    FOREIGN KEY (footballer_id) REFERENCES FOOTBALL_TEAM_MEMBER (member_id)
+    footballer_id     integer not null,
+    team_id           integer not null,
+    registration_date date    not null,
+    primary key (footballer_id, team_id, registration_date),
+    foreign key (footballer_id) references footballer (footballer_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE COACH
+create table footballer_position_in_team
 (
-    coach_id   INT  NOT NULL UNIQUE,
-    role TEXT NOT NULL, -- main or assistant
-    PRIMARY KEY (coach_id),
-    FOREIGN KEY (coach_id) REFERENCES FOOTBALL_TEAM_MEMBER (member_id)
+    footballer_id integer     not null,
+    team_id       integer     not null,
+    position      varchar(15) not null check (position in ('goalkeeper', 'defender', 'midfielder', 'forward')),
+    primary key (footballer_id, team_id),
+    foreign key (footballer_id) references footballer (footballer_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE TEAM_STATISTIC
+create table coach
 (
-    team_id        INT NOT NULL UNIQUE,
-    sum_of_wins    INT NOT NULL,
-    sum_of_draws   INT NOT NULL,
-    sum_of_defeats INT NOT NULL,
-    PRIMARY KEY (team_id),
-    FOREIGN KEY (team_id) REFERENCES TEAM (team_id)
+    coach_id      integer not null unique,
+    footballer_id integer not null,
+    primary key (coach_id),
+    foreign key (footballer_id) references footballer (footballer_id)
 );
 
-CREATE TABLE WINS
+create table coach_registration_date_in_team
 (
-    team_id INT NOT NULL UNIQUE,
-    home    INT NOT NULL,
-    away    INT NOT NULL,
-    PRIMARY KEY (team_id),
-    FOREIGN KEY (team_id) REFERENCES TEAM_STATISTIC (team_id)
+    coach_id          integer not null,
+    team_id           integer not null,
+    registration_date date    not null,
+    primary key (coach_id, team_id, registration_date),
+    foreign key (coach_id) references coach (coach_id),
+    foreign key (team_id) references team (team_id)
+
 );
 
-CREATE TABLE DRAWS
+create table coach_position_in_team
 (
-    team_id INT NOT NULL UNIQUE,
-    home    INT NOT NULL,
-    away    INT NOT NULL,
-    PRIMARY KEY (team_id),
-    FOREIGN KEY (team_id) REFERENCES TEAM_STATISTIC (team_id)
+    coach_id integer     not null,
+    team_id  integer     not null,
+    position varchar(15) not null check (position in
+                                         ('head', 'assistant', 'goalkeeping', 'fitness', 'technical', 'scout',
+                                          'youth')),
+    primary key (coach_id, team_id),
+    foreign key (coach_id) references coach (coach_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE DEFEATS
+create table match
 (
-    team_id INT NOT NULL UNIQUE,
-    home    INT NOT NULL,
-    away    INT NOT NULL,
-    PRIMARY KEY (team_id),
-    FOREIGN KEY (team_id) REFERENCES TEAM_STATISTIC (team_id)
+    match_id     integer   not null unique,
+    home_team_id integer   not null,
+    away_team_id integer   not null,
+    match_date   timestamp not null,
+    primary key (match_id),
+    foreign key (home_team_id) references team (team_id),
+    foreign key (away_team_id) references team (team_id)
 );
 
-CREATE TABLE MATCH
+create table match_score
 (
-    match_id     INT  NOT NULL UNIQUE,
-    home_team_id INT  NOT NULL,
-    away_team_id INT  NOT NULL,
-    date         DATE NOT NULL,
-    PRIMARY KEY (match_id),
-    FOREIGN KEY (home_team_id) REFERENCES TEAM (team_id),
-    FOREIGN KEY (away_team_id) REFERENCES TEAM (team_id)
+    match_id        integer not null unique,
+    home_team_score integer not null,
+    away_team_score integer not null,
+    primary key (match_id),
+    foreign key (match_id) references match (match_id)
 );
 
-CREATE TABLE MATCH_STATISTIC
+create table team_wins
 (
-    match_id        INT NOT NULL UNIQUE,
-    home_team_goals INT NOT NULL,
-    away_team_goals INT NOT NULL,
-    PRIMARY KEY (match_id),
-    FOREIGN KEY (match_id) REFERENCES MATCH (match_id)
+    team_id   integer not null unique,
+    home_wins integer not null,
+    away_wins integer not null,
+    primary key (team_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE GOAL
+create table team_draws
 (
-    match_id INT     NOT NULL,
-    valid    BOOLEAN NOT NULL,
-    time     TIME    NOT NULL,
-    PRIMARY KEY (match_id, time),
-    FOREIGN KEY (match_id) REFERENCES MATCH (match_id)
+    team_id    integer not null unique,
+    home_draws integer not null,
+    away_draws integer not null,
+    primary key (team_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE PENALTY
+create table team_defeats
 (
-    match_id INT  NOT NULL,
-    time     TIME NOT NULL,
-    PRIMARY KEY (match_id, time),
-    FOREIGN KEY (match_id) REFERENCES MATCH (match_id)
+    team_id      integer not null unique,
+    home_defeats integer not null,
+    away_defeats integer not null,
+    primary key (team_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE CORNER
+create table team_statistic
 (
-    match_id INT  NOT NULL,
-    time     TIME NOT NULL,
-    PRIMARY KEY (match_id, time),
-    FOREIGN KEY (match_id) REFERENCES MATCH (match_id)
+    team_id        integer not null unique,
+    sum_of_wins    integer not null,
+    sum_of_draws   integer not null,
+    sum_of_defeats integer not null,
+    primary key (team_id),
+    foreign key (team_id) references team (team_id)
 );
 
-CREATE TABLE FOOTBALLER_STATISTIC
+create table goal
 (
-    footballer_id INT  NOT NULL,
-    match_id      INT  NOT NULL,
-    goals         INT  NOT NULL,
-    yellow_cards  INT  NOT NULL,
-    red_cards     INT  NOT NULL,
-    duration      TIME NOT NULL,
-    PRIMARY KEY (footballer_id, match_id),
-    FOREIGN KEY (footballer_id) REFERENCES FOOTBALLER (footballer_id),
-    FOREIGN KEY (match_id) REFERENCES MATCH (match_id)
+    match_id      integer not null,
+    footballer_id integer not null,
+    goal_time     time    not null,
+    is_valid      boolean not null,
+    is_penalty    boolean not null,
+    primary key (match_id, footballer_id, goal_time),
+    foreign key (match_id) references match (match_id),
+    foreign key (footballer_id) references footballer (footballer_id)
 );
 
-CREATE TABLE CARD
+create table corner
 (
-    footballer_id INT  NOT NULL,
-    match_id      INT  NOT NULL,
-    color         CHAR NOT NULL,
-    time          TIME NOT NULL,
-    PRIMARY KEY (footballer_id, match_id, time),
-    FOREIGN KEY (footballer_id) REFERENCES FOOTBALLER (footballer_id),
-    FOREIGN KEY (match_id) REFERENCES MATCH (match_id)
+    match_id      integer not null,
+    footballer_id integer not null,
+    corner_time   time    not null,
+    primary key (match_id, corner_time),
+    foreign key (match_id) references match (match_id),
+    foreign key (footballer_id) references footballer (footballer_id)
+);
+
+create table penalty
+(
+    match_id      integer not null,
+    footballer_id integer not null,
+    penalty_time  time    not null,
+    primary key (match_id, penalty_time),
+    foreign key (match_id) references match (match_id),
+    foreign key (footballer_id) references footballer (footballer_id)
+);
+
+create table card
+(
+    match_id      integer not null,
+    footballer_id integer not null,
+    card_time     time    not null,
+    is_yellow     boolean not null,
+    primary key (match_id, footballer_id, card_time),
+    foreign key (match_id) references match (match_id),
+    foreign key (footballer_id) references footballer (footballer_id)
+);
+
+create table footballer_statistic_in_match
+(
+    footballer_id integer not null,
+    match_id      integer not null,
+    goals         integer not null,
+    corners       integer not null,
+    penalties     integer not null,
+    yellow_cards  integer not null,
+    red_cards     integer not null,
+    time_played   time    not null,
+    primary key (match_id, footballer_id),
+    foreign key (match_id) references match (match_id),
+    foreign key (footballer_id) references footballer (footballer_id)
 );
