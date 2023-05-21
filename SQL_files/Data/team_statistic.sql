@@ -1,20 +1,10 @@
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (1, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (2, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (3, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (4, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (5, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (6, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (7, 0, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (8, 0, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (9, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (10, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (11, 0, 1, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (12, 0, 1, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (13, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (14, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (15, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (16, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (17, 1, 0, 0);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (18, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (19, 0, 0, 1);
-insert into team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats) values (20, 1, 0, 0);
+insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
+values (1, 1, 0, 1);
+insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
+values (2, 0, 1, 1);
+insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
+values (3, 1, 1, 0);
+insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
+values (4, 0, 0, 1);
+insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
+values (5, 1, 0, 0);

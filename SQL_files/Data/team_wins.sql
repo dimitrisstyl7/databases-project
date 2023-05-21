@@ -1,20 +1,10 @@
-insert into team_wins (team_id, home_wins, away_wins) values (1, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (2, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (3, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (4, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (5, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (6, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (7, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (8, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (9, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (10, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (11, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (12, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (13, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (14, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (15, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (16, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (17, 1, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (18, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (19, 0, 0);
-insert into team_wins (team_id, home_wins, away_wins) values (20, 0, 1);
+insert into footballclub_db.public.team_wins (team_id, home_wins, away_wins)
+values (1, 1, 0);
+insert into footballclub_db.public.team_wins (team_id, home_wins, away_wins)
+values (2, 0, 0);
+insert into footballclub_db.public.team_wins (team_id, home_wins, away_wins)
+values (3, 1, 0);
+insert into footballclub_db.public.team_wins (team_id, home_wins, away_wins)
+values (4, 0, 0);
+insert into footballclub_db.public.team_wins (team_id, home_wins, away_wins)
+values (5, 1, 0);

@@ -1,10 +1,8 @@
-insert into match (match_id, home_team_id, away_team_id, match_date) values (1, 1, 2, '2023-05-29 12:59:22');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (2, 3, 4, '2023-06-22 12:51:53');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (3, 5, 6, '2023-05-25 00:35:46');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (4, 7, 8, '2023-05-29 06:26:43');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (5, 9, 10, '2023-06-08 19:45:34');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (6, 11, 12, '2023-06-23 14:14:21');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (7, 13, 14, '2023-06-06 11:02:13');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (8, 15, 16, '2023-06-07 17:42:13');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (9, 17, 18, '2023-06-05 15:56:52');
-insert into match (match_id, home_team_id, away_team_id, match_date) values (10, 19, 20, '2023-06-07 15:55:34');
+insert into footballclub_db.public.match (match_id, home_team_id, away_team_id, match_date)
+values (1, 1, 2, '2023-05-05 14:00:00');
+insert into footballclub_db.public.match (match_id, home_team_id, away_team_id, match_date)
+values (2, 3, 4, '2023-05-06 15:00:00');
+insert into footballclub_db.public.match (match_id, home_team_id, away_team_id, match_date)
+values (3, 5, 1, '2023-05-17 17:00:00');
+insert into footballclub_db.public.match (match_id, home_team_id, away_team_id, match_date)
+values (4, 2, 3, '2023-05-20 13:00:00');

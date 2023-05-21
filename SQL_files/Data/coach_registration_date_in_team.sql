@@ -1,20 +1,10 @@
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (1, 2, '2023-04-15');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (2, 4, '2023-04-26');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (3, 10, '2023-04-21');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (4, 20, '2023-05-05');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (5, 18, '2023-04-23');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (6, 14, '2023-05-08');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (7, 12, '2023-05-06');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (8, 8, '2023-05-01');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (9, 15, '2023-04-22');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (10, 15, '2023-04-24');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (11, 3, '2023-05-12');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (12, 1, '2023-05-01');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (13, 2, '2023-04-12');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (14, 2, '2023-04-10');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (15, 4, '2023-05-01');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (16, 6, '2023-04-11');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (17, 15, '2023-05-15');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (18, 19, '2023-04-23');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (19, 20, '2023-05-04');
-insert into coach_registration_date_in_team (coach_id, team_id, registration_date) values (20, 11, '2023-04-18');
+insert into footballclub_db.public.coach_registration_date_in_team (coach_id, team_id, registration_date)
+values (1, 1, '2023-04-15');
+insert into footballclub_db.public.coach_registration_date_in_team (coach_id, team_id, registration_date)
+values (2, 2, '2023-04-26');
+insert into footballclub_db.public.coach_registration_date_in_team (coach_id, team_id, registration_date)
+values (3, 3, '2023-04-21');
+insert into footballclub_db.public.coach_registration_date_in_team (coach_id, team_id, registration_date)
+values (4, 4, '2023-05-05');
+insert into footballclub_db.public.coach_registration_date_in_team (coach_id, team_id, registration_date)
+values (5, 5, '2023-04-23');

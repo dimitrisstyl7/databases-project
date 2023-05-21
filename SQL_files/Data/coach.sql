@@ -1,20 +1,10 @@
-insert into coach (coach_id, footballer_id) values (1, 43);
-insert into coach (coach_id, footballer_id) values (2, 38);
-insert into coach (coach_id, footballer_id) values (3, 13);
-insert into coach (coach_id, footballer_id) values (4, 41);
-insert into coach (coach_id, footballer_id) values (5, 48);
-insert into coach (coach_id, footballer_id) values (6, 1);
-insert into coach (coach_id, footballer_id) values (7, 6);
-insert into coach (coach_id, footballer_id) values (8, 19);
-insert into coach (coach_id, footballer_id) values (9, 15);
-insert into coach (coach_id, footballer_id) values (10, 10);
-insert into coach (coach_id, footballer_id) values (11, 20);
-insert into coach (coach_id, footballer_id) values (12, 1);
-insert into coach (coach_id, footballer_id) values (13, 60);
-insert into coach (coach_id, footballer_id) values (14, 18);
-insert into coach (coach_id, footballer_id) values (15, 4);
-insert into coach (coach_id, footballer_id) values (16, 3);
-insert into coach (coach_id, footballer_id) values (17, 49);
-insert into coach (coach_id, footballer_id) values (18, 48);
-insert into coach (coach_id, footballer_id) values (19, 34);
-insert into coach (coach_id, footballer_id) values (20, 28);
+insert into footballclub_db.public.coach (coach_id, footballer_id)
+values (1, 1);
+insert into footballclub_db.public.coach (coach_id, footballer_id)
+values (2, 12);
+insert into footballclub_db.public.coach (coach_id, footballer_id)
+values (3, 23);
+insert into footballclub_db.public.coach (coach_id, footballer_id)
+values (4, 34);
+insert into footballclub_db.public.coach (coach_id, footballer_id)
+values (5, 45);

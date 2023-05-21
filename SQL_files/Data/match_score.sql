@@ -1,10 +1,8 @@
-insert into match_score (match_id, home_team_score, away_team_score) values (1, 4, 2);
-insert into match_score (match_id, home_team_score, away_team_score) values (2, 3, 0);
-insert into match_score (match_id, home_team_score, away_team_score) values (3, 4, 3);
-insert into match_score (match_id, home_team_score, away_team_score) values (4, 1, 1);
-insert into match_score (match_id, home_team_score, away_team_score) values (5, 4, 2);
-insert into match_score (match_id, home_team_score, away_team_score) values (6, 1, 1);
-insert into match_score (match_id, home_team_score, away_team_score) values (7, 2, 1);
-insert into match_score (match_id, home_team_score, away_team_score) values (8, 4, 1);
-insert into match_score (match_id, home_team_score, away_team_score) values (9, 4, 1);
-insert into match_score (match_id, home_team_score, away_team_score) values (10, 0, 4);
+insert into footballclub_db.public.match_score (match_id, home_team_score, away_team_score)
+values (1, 4, 2);
+insert into footballclub_db.public.match_score (match_id, home_team_score, away_team_score)
+values (2, 3, 0);
+insert into footballclub_db.public.match_score (match_id, home_team_score, away_team_score)
+values (3, 4, 3);
+insert into footballclub_db.public.match_score (match_id, home_team_score, away_team_score)
+values (4, 1, 1);
