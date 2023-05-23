@@ -1,55 +1,139 @@
-CREATE OR REPLACE FUNCTION check_team_space() RETURNS TRIGGER AS
+create or replace function check_team_space() returns trigger as
 $$
-DECLARE
-    current_count INT;
-BEGIN
-    SELECT COUNT(*)
-    INTO current_count
-    FROM footballclub_db.public.football_team_member
-    WHERE team_id = NEW.team_id
-      AND DATE_PART('YEAR', registered_date) = DATE_PART('YEAR', NEW.registered_date);
+declare
+    current_count int;
+begin
+    select count(*)
+    into current_count
+    from footballclub_db.public.footballer_registration_date_in_team
+    where team_id = new.team_id
+      and date_part('year', registration_date) = date_part('year', new.registration_date);
 
-    IF current_count >= 11 THEN
-        RAISE EXCEPTION 'Team has reached the maximum number of players.';
-    END IF;
-
-    RETURN NEW;
-END ;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE TRIGGER check_team_space
-    BEFORE INSERT
-    ON footballclub_db.public.football_team_member
-    FOR EACH ROW
-EXECUTE FUNCTION check_team_space();
-
-CREATE OR REPLACE FUNCTION check_coach_criteria() RETURNS TRIGGER AS
-$$
-DECLARE
-    flag BOOLEAN := FALSE;
-BEGIN
-    IF NEW.role = 'coach' THEN
-        SELECT EXISTS(SELECT 1
-                      FROM footballclub_db.public.football_team_member
-                      WHERE team_id = NEW.team_id
-                        AND member_id = NEW.member_id
-                        AND role = 'footballer')
-        INTO flag;
-
-        IF NOT flag THEN
-            RAISE EXCEPTION 'The coach must have been a footballer first in the team.';
-        END IF;
+    if current_count >= 11 then
+        raise exception 'Team has reached the maximum number of players.';
     end if;
 
-    RETURN NEW;
-END ;
-$$ LANGUAGE plpgsql;
+    return new;
+end ;
+$$ language plpgsql;
 
-CREATE OR REPLACE TRIGGER check_coach_criteria
-    BEFORE INSERT
-    ON footballclub_db.public.football_team_member
-    FOR EACH ROW
-EXECUTE FUNCTION check_coach_criteria();
+create or replace function check_coach_eligibility_criteria() returns trigger as
+$$
+declare
+    flag boolean := false;
+begin
+    select exists(select 1
+                  from footballclub_db.public.footballer_registration_date_in_team
+                  where footballer_id = new.footballer_id
+                    and date_part('year', registration_date) < date_part('year', current_date))
+    into flag;
 
-select current_date;
-SELECT now()::timestamp(0);
+    if not flag then
+        raise exception 'The coach must have been a footballer first in a team, at least one year before becoming a coach.';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create or replace function check_footballer_registration_criteria() returns trigger as
+$$
+declare
+    flag boolean := false;
+begin
+    select exists(select 1
+                  from footballclub_db.public.footballer_registration_date_in_team
+                  where footballer_id = new.footballer_id
+                    and date_part('year', registration_date) = date_part('year', new.registration_date))
+    into flag;
+
+    if flag then
+        raise exception 'The footballer is already registered in a team for the current year.';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create or replace function check_coach_registration_criteria() returns trigger as
+$$
+declare
+    flag boolean := false;
+begin
+    select exists(select 1
+                  from footballclub_db.public.coach_registration_date_in_team
+                  where coach_id = new.coach_id
+                    and date_part('year', registration_date) = date_part('year', new.registration_date))
+    into flag;
+
+    if flag then
+        raise exception 'The coach is already registered in a team for the current year.';
+    end if;
+    return new;
+end;
+$$ language plpgsql;
+
+create or replace function check_match_criteria() returns trigger as
+$$
+declare
+    flag boolean := false;
+begin
+    select exists(select 1
+                  from footballclub_db.public.match
+                  where (home_team_id = new.home_team_id
+                      or away_team_id = new.away_team_id
+                      or home_team_id = new.away_team_id
+                      or away_team_id = new.home_team_id)
+                    and date(match_date) = date(new.match_date))
+    into flag;
+
+    if flag then
+        raise exception 'One or both of the teams are already playing a match on the same day.';
+    end if;
+
+    select exists(select 1
+                  from footballclub_db.public.match
+                  where (home_team_id = new.home_team_id
+                      or away_team_id = new.away_team_id
+                      or home_team_id = new.away_team_id
+                      or away_team_id = new.home_team_id)
+                    and (date(match_date) = date(new.match_date - interval '10 day')
+                      or date(match_date) = date(new.match_date + interval '10 day')))
+    into flag;
+
+    if flag then
+        raise exception 'One or both of the teams are already playing a match 10 days before or after the current match.';
+    end if;
+
+    return new;
+end;
+$$ language plpgsql;
+
+
+create or replace trigger check_team_space
+    before insert
+    on footballclub_db.public.footballer_registration_date_in_team
+    for each row
+execute function check_team_space();
+
+create or replace trigger check_coach_eligibility_criteria
+    before insert
+    on footballclub_db.public.coach
+    for each row
+execute function check_coach_eligibility_criteria();
+
+create or replace trigger check_footballer_registration_criteria
+    before insert
+    on footballclub_db.public.footballer_registration_date_in_team
+    for each row
+execute function check_footballer_registration_criteria();
+
+create or replace trigger check_coach_registration_criteria
+    before insert
+    on footballclub_db.public.coach_registration_date_in_team
+    for each row
+execute function check_coach_registration_criteria();
+
+create or replace trigger check_match_criteria
+    before insert
+    on footballclub_db.public.match
+    for each row
+execute function check_match_criteria();
