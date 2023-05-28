@@ -68,10 +68,11 @@ create table coach_position_in_team
 
 create table match
 (
-    match_id     integer   not null unique,
-    home_team_id integer   not null,
-    away_team_id integer   not null,
-    match_date   timestamp not null,
+    match_id     integer not null unique,
+    home_team_id integer not null,
+    away_team_id integer not null,
+    match_date   date    not null,
+    match_time   time    not null,
     primary key (match_id),
     foreign key (home_team_id) references team (team_id),
     foreign key (away_team_id) references team (team_id)
