@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="import_data_configuration" type="DatabaseScript" editBeforeRun="true">
+  <configuration default="false" name="import_data_configuration_from_files" type="DatabaseScript" editBeforeRun="true">
     <script-file value="$PROJECT_DIR$/Data/team.sql" />
     <script-file value="$PROJECT_DIR$/Data/footballer.sql" />
     <script-file value="$PROJECT_DIR$/Data/footballer_registration_date_in_team.sql" />
