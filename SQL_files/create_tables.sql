@@ -161,7 +161,7 @@ create table card
     match_id      integer not null,
     footballer_id integer not null,
     card_time     time    not null,
-    is_yellow     boolean not null,
+    is_yellow     boolean not null,-- true -> yellow, false -> red
     primary key (match_id, footballer_id, card_time),
     foreign key (match_id) references match (match_id),
     foreign key (footballer_id) references footballer (footballer_id)
