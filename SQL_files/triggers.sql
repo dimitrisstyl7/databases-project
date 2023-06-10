@@ -1,3 +1,4 @@
+-- functions returning trigger
 create or replace function check_team_space() returns trigger as
 $$
 declare
@@ -118,7 +119,7 @@ begin
 end;
 $$ language plpgsql;
 
-
+-- triggers creation
 create or replace trigger check_team_space
     before insert
     on footballclub_db.public.footballer_registration_date_in_team
