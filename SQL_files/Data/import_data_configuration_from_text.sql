@@ -405,20 +405,36 @@ values (4, 1, 1);
 
 -- team_wins table data
 -- We update instead of insert because we already have data in the table (due to the trigger initialization)
-update footballclub_db.public.team_wins set home_wins = team_wins.home_wins + 1 where team_id = 1;
-update footballclub_db.public.team_wins set away_wins = team_wins.away_wins + 1 where team_id = 3;
-update footballclub_db.public.team_wins set home_wins = team_wins.home_wins + 1 where team_id = 5;
+update footballclub_db.public.team_wins
+set home_wins = team_wins.home_wins + 1
+where team_id = 1;
+update footballclub_db.public.team_wins
+set away_wins = team_wins.away_wins + 1
+where team_id = 3;
+update footballclub_db.public.team_wins
+set home_wins = team_wins.home_wins + 1
+where team_id = 5;
 
 -- team_draws table data
 -- We update instead of insert because we already have data in the table (due to the trigger initialization)
-update footballclub_db.public.team_draws set home_draws = team_draws.home_draws + 1 where team_id = 2;
-update footballclub_db.public.team_draws set away_draws = team_draws.away_draws + 1 where team_id = 3;
+update footballclub_db.public.team_draws
+set home_draws = team_draws.home_draws + 1
+where team_id = 2;
+update footballclub_db.public.team_draws
+set away_draws = team_draws.away_draws + 1
+where team_id = 3;
 
 --team_defeats table data
 -- We update instead of insert because we already have data in the table (due to the trigger initialization)
-update footballclub_db.public.team_defeats set away_defeats = team_defeats.away_defeats + 1 where team_id = 1;
-update footballclub_db.public.team_defeats set home_defeats = team_defeats.away_defeats + 1 where team_id = 2;
-update footballclub_db.public.team_defeats set home_defeats = team_defeats.away_defeats + 1 where team_id = 4;
+update footballclub_db.public.team_defeats
+set away_defeats = team_defeats.away_defeats + 1
+where team_id = 1;
+update footballclub_db.public.team_defeats
+set home_defeats = team_defeats.away_defeats + 1
+where team_id = 2;
+update footballclub_db.public.team_defeats
+set home_defeats = team_defeats.away_defeats + 1
+where team_id = 4;
 
 -- goal table data
 insert into footballclub_db.public.goal (match_id, footballer_id, goal_time, is_valid, is_penalty)
@@ -559,3 +575,72 @@ insert into footballclub_db.public.card (match_id, footballer_id, card_time, is_
 values (4, 19, '14:29:19', true);
 insert into footballclub_db.public.card (match_id, footballer_id, card_time, is_yellow)
 values (4, 29, '14:41:23', true);
+
+-- footballer statistic in match table data
+-- We insert footballer statistic data only for the first match.
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (1, 1, 1, 0, 1, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (2, 1, 0, 1, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (3, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (4, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (5, 1, 0, 0, 0, 1, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (6, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (7, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (8, 1, 2, 0, 1, 1, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (9, 1, 0, 1, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (10, 1, 1, 0, 1, 0, 1, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (11, 1, 0, 0, 1, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (12, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (13, 1, 0, 1, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (14, 1, 1, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (15, 1, 0, 1, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (16, 1, 0, 0, 0, 0, 1, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (17, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (18, 1, 1, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (19, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (20, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (21, 1, 0, 0, 0, 0, 0, '00:45:00');
+insert into footballclub_db.public.footballer_statistic_in_match (footballer_id, match_id, goals, corners, penalties,
+                                                                  yellow_cards, red_cards, time_played)
+values (22, 1, 0, 0, 0, 1, 0, '00:45:00');
