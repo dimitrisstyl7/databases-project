@@ -118,41 +118,6 @@ begin
 end;
 $$ language plpgsql;
 
--- create or replace function update_team_statistic() returns trigger as
--- $$
--- begin
---     update footballclub_db.public.team_statistic
---     set sum_of_wins    = sum_of_wins + tg_argv[0]::integer,
---         sum_of_draws   = sum_of_draws + tg_argv[1]::integer,
---         sum_of_defeats = sum_of_defeats + tg_argv[2]::integer
---     where team_id = new.team_id;
---     return new;
--- end;
--- $$ language plpgsql;
-
--- create or replace function initialize_footballer_statistic_in_match() returns trigger as
--- $$
--- declare
---     cur refcursor;
---     rec record;
--- begin
---     open cur for select footballer_id
---                  from footballclub_db.public.footballer_registration_date_in_team
---                  where team_id = new.home_team_id
---                    and date_part('year', registration_date) = date_part('year', new.match_date);
---
---     loop
---         fetch cur into rec;
---         exit when not found;
---         insert into footballclub_db.public.footballer_statistic_in_match
---         values (rec.footballer_id, new.match_id, 0, 0, 0, 0, 0, '00:00:00');
---     end loop;
---     close cur;
---
---     return new;
--- end;
--- $$ language plpgsql;
-
 
 create or replace trigger check_team_space
     before insert
@@ -189,27 +154,3 @@ create or replace trigger initialize_team_statistic
     on footballclub_db.public.team
     for each row
 execute function initialize_team_statistic();
-
--- create or replace trigger update_team_win_statistic
---     after update
---     on footballclub_db.public.team_wins
---     for each row
--- execute function update_team_statistic(1, 0, 0);
---
--- create or replace trigger update_team_draw_statistic
---     after update
---     on footballclub_db.public.team_draws
---     for each row
--- execute function update_team_statistic(0, 1, 0);
---
--- create or replace trigger update_team_defeat_statistic
---     after update
---     on footballclub_db.public.team_defeats
---     for each row
--- execute function update_team_statistic(0, 0, 1);
-
--- create or replace trigger initialize_footballer_statistic_in_match
---     after insert
---     on footballclub_db.public.match
---     for each row
--- execute function initialize_footballer_statistic_in_match();
