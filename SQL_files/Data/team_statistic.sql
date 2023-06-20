@@ -1,10 +1,25 @@
-insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
-values (1, 1, 0, 1);
-insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
-values (2, 0, 1, 1);
-insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
-values (3, 1, 1, 0);
-insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
-values (4, 0, 0, 1);
-insert into footballclub_db.public.team_statistic (team_id, sum_of_wins, sum_of_draws, sum_of_defeats)
-values (5, 1, 0, 0);
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 1,
+    sum_of_draws   = 0,
+    sum_of_defeats = 1
+where team_id = 1;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 0,
+    sum_of_draws   = 1,
+    sum_of_defeats = 1
+where team_id = 2;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 1,
+    sum_of_draws   = 1,
+    sum_of_defeats = 0
+where team_id = 3;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 0,
+    sum_of_draws   = 0,
+    sum_of_defeats = 1
+where team_id = 4;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 1,
+    sum_of_draws   = 0,
+    sum_of_defeats = 0
+where team_id = 5;
