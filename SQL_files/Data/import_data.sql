@@ -436,6 +436,34 @@ update footballclub_db.public.team_defeats
 set home_defeats = team_defeats.away_defeats + 1
 where team_id = 4;
 
+-- team_statistic table data
+-- We update instead of insert because we already have data in the table (due to the trigger initialization)
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 1,
+    sum_of_draws   = 0,
+    sum_of_defeats = 1
+where team_id = 1;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 0,
+    sum_of_draws   = 1,
+    sum_of_defeats = 1
+where team_id = 2;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 1,
+    sum_of_draws   = 1,
+    sum_of_defeats = 0
+where team_id = 3;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 0,
+    sum_of_draws   = 0,
+    sum_of_defeats = 1
+where team_id = 4;
+update footballclub_db.public.team_statistic
+set sum_of_wins    = 1,
+    sum_of_draws   = 0,
+    sum_of_defeats = 0
+where team_id = 5;
+
 -- goal table data
 insert into footballclub_db.public.goal (match_id, footballer_id, goal_time, is_valid, is_penalty)
 values (1, 11, '14:05:14', false, true);
