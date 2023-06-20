@@ -1,3 +1,4 @@
+drop table if exists footballclub_db.public.relegated_team;
 drop table if exists footballclub_db.public.footballer_statistic_in_match;
 drop table if exists footballclub_db.public.card;
 drop table if exists footballclub_db.public.corner;
