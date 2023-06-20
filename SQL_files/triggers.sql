@@ -119,6 +119,16 @@ begin
 end;
 $$ language plpgsql;
 
+create or replace function team_relegation() returns trigger as
+$$
+begin
+    insert into footballclub_db.public.relegated_team
+    values (old.team_id, old.team_name, old.stadium, old.description);
+    return old;
+end;
+$$ language plpgsql;
+
+
 -- triggers creation
 create or replace trigger check_team_space
     before insert
@@ -155,3 +165,9 @@ create or replace trigger initialize_team_statistic
     on footballclub_db.public.team
     for each row
 execute function initialize_team_statistic();
+
+create or replace trigger team_relegation
+    after delete
+    on footballclub_db.public.team
+    for each row
+execute function team_relegation();
