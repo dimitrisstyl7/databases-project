@@ -12,9 +12,9 @@ def menu():
 
         choice = input("\n> Type a number (1-4) for executing query, or anything else for exiting: ")
 
-        if choice == '1':
-            match_id = input("Match id: ")
-            team_id = input("Team id: ")
+        if choice == "1":
+            match_id = input("\t> Match id: ")
+            team_id = input("\t> Team id: ")
             query = "select t3.coach_id, t4.footballer_name, t4.footballer_surname " \
                     "from " \
                     "(select home_team_id as home, away_team_id as away " \
@@ -26,36 +26,59 @@ def menu():
                     "inner join footballer as t4 " \
                     "on t4.footballer_id=t3.footballer_id;"
             cursor.execute(query, (match_id, team_id, team_id, team_id))
-            print(cursor.fetchone())
-        elif choice == '2':
-            match_id = input("Match id: ")
+            result = cursor.fetchone()
+            if result is None:
+                print("\n\t\tNo coach found.")
+            else:
+                print("\n\tResult:")
+                print(f"\t\t<> Coach id: {result[0]}  |  Coach name: {result[1]} {result[2]}")
+
+        elif choice == "2":
+            match_id = input("\t> Match id: ")
             goal_query = "select t1.goal_time, t1.is_valid, t2.footballer_id, " \
                          "t2.footballer_name, t2.footballer_surname " \
                          "from goal as t1 natural join footballer as t2 " \
                          "where t1.match_id=%s;"
             cursor.execute(goal_query, match_id)
-            print("Goals:")
-            for row in cursor.fetchall():
-                print(row)
+            print("\n\tResult:")
+            print("\t\tGoals:")
+            result = cursor.fetchall()
+            if len(result) == 0:
+                print("\t\t\tNo goals found.")
+            else:
+                for row in result:
+                    print(f"\t\t\t<> Goal time: {row[0]}  |  Is valid: {row[1]}  |  Footballer id: {row[2]}")
 
             penalty_query = "select t1.penalty_time, t2.footballer_id, t2.footballer_name, t2.footballer_surname " \
                             "from penalty as t1 natural join footballer as t2 " \
                             "where t1.match_id=%s;"
             cursor.execute(penalty_query, match_id)
-            print("\nPenalties:")
-            for row in cursor.fetchall():
-                print(row)
-        elif choice == '3':
-            footballer_id = input("Footballer id: ")
-            query = "select * " \
+            print("\n\t\tPenalties:")
+            result = cursor.fetchall()
+            if len(result) == 0:
+                print("\t\t\tNo penalties found.")
+            else:
+                for row in result:
+                    print(
+                        f"\t\t\t<> Penalty time: {row[0]}  |  Footballer id: {row[1]}  |  "
+                        f"Footballer name: {row[2]} {row[3]}")
+
+        elif choice == "3":
+            footballer_id = input("\t> Footballer id: ")
+            query = "select t1.goals, t1.penalties, t1.yellow_cards, t1.red_cards, t1.time_played, t2.position " \
                     "from footballer_statistic_in_match as t1 natural join footballer_position_in_team as t2 " \
-                    "where footballer_id=%s;"
+                    "where t1.footballer_id=%s;"
             cursor.execute(query, footballer_id)
-            print("Footballer statistic:")
-            for row in cursor.fetchall():
-                print(row)
-        elif choice == '4':
-            team_id = input("Team id: ")
+            print("\n\tResult:")
+            result = cursor.fetchall()
+            if len(result) == 0:
+                print("\t\tNo statistic found.")
+            for row in result:
+                print(f"\t\t<> Goals: {row[0]}  |  Penalties: {row[1]}  |  Yellow cards: {row[2]}  |  "
+                      f"Red cards: {row[3]}  |  Time played: {row[4]}  |  Position: {row[5]}")
+
+        elif choice == "4":
+            team_id = input("\t> Team id: ")
             query = "select sum(t1.home_wins + t1.away_wins + " \
                     "t2.home_defeats + t2.away_defeats + " \
                     "t3.home_draws + t3.away_draws), sum(t1.home_wins + t2.home_defeats + t3.home_draws), " \
@@ -63,15 +86,18 @@ def menu():
                     "from team_wins as t1 natural join team_defeats as t2 natural join team_draws as t3 " \
                     "where team_id=%s;"
             cursor.execute(query, team_id)
-            print("Team statistic:")
-            for row in cursor.fetchall():
-                print(row)
+            print("\n\tResult:")
+            result = cursor.fetchall()
+            if len(result) == 0:
+                print("\t\tNo statistic found.")
+            for row in result:
+                print(f"\t\t<> Total matches: {row[0]}  |  Home matches: {row[1]}  |  Away matches: {row[2]}")
         else:
-            print("Exiting...")
+            print("\nExiting...")
             return
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     conn = psycopg2.connect(host="localhost", database="footballclub_db", user="postgres", password="1234")
     cursor = conn.cursor()
     menu()
