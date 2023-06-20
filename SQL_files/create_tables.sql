@@ -181,3 +181,12 @@ create table footballer_statistic_in_match
     foreign key (match_id) references match (match_id),
     foreign key (footballer_id) references footballer (footballer_id)
 );
+
+create table relegated_team
+(
+    team_id     integer     not null unique,
+    team_name   varchar(30) not null,
+    stadium     varchar(30) not null,
+    description text        not null,
+    primary key (team_id)
+);
